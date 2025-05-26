@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ejercicio de Proyección y Descomposición de Vectores</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1e1e2f, #2a2a3f);
+        color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+      .main-container {
+        max-width: 800px;
+        width: 100%;
+        background-color: #292940;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      }
+      header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+        color: #ffe066;
+      }
+      header p {
+        font-size: 1.1rem;
+        color: #ccc;
+        margin-bottom: 30px;
+      }
+      .exercise {
+        margin-top: 20px;
+        background-color: #1f1f30;
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .exercise h2 {
+        font-size: 1.15rem;
+        margin-bottom: 15px;
+        line-height: 1.4;
+      }
+      .option {
+        display: block;
+        background-color: #38385c;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        margin: 6px 0;
+        cursor: pointer;
+        font-size: 1rem;
+        text-align: left;
+        transition: background-color 0.3s ease;
+      }
+      .option:hover:not(:disabled) {
+        background-color: #505080;
+      }
+      .correct {
+        background-color: #4caf50 !important;
+        color: #eafaf1;
+      }
+      .incorrect {
+        background-color: #e74c3c !important;
+        color: #fcebea;
+      }
+      .feedback {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 1rem;
+      }
+    </style>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+  </head>
+  <body>
+    <div class="main-container">
+      <header>
+        <h1>🦊 ¡Hora de practicar! Godot te acompaña en estos ejercicios</h1>
+        <p>Ejercicio: Proyección y descomposición de vectores</p>
+      </header>
+
+      <div class="exercise-section">
+        <!-- Pregunta 1 -->
+        <div class="exercise">
+          <h2>
+            1. Dados los vectores \( \vec{u} = (5, 2) \) y \( \vec{v} = (1, 3)
+            \), calcula la proyección de \( \vec{u} \) sobre \( \vec{v} \).
+          </h2>
+          <button
+            class="option"
+            data-correct="true"
+            onclick="checkAnswer(this, 'feedback1')"
+          >
+            A. (1.1, 3.3)
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback1')">
+            B. (3, 6)
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback1')">
+            C. (5, 2)
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback1')">
+            D. (2, 1)
+          </button>
+          <div id="feedback1" class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="exercise">
+          <h2>
+            2. Descompón el vector \( \vec{u} \) en sus componentes paralela y
+            perpendicular respecto a \( \vec{v} \).
+          </h2>
+          <button
+            class="option"
+            data-correct="true"
+            onclick="checkAnswer(this, 'feedback2')"
+          >
+            A. Paralela: (1.1, 3.3) y Perpendicular: (3.9, -1.3)
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback2')">
+            B. Paralela: (3.9, -1.3) y Perpendicular: (1.1, 3.3)
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback2')">
+            C. Paralela: (5, 2) y Perpendicular: (0, 0)
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback2')">
+            D. Paralela: (0, 0) y Perpendicular: (5, 2)
+          </button>
+          <div id="feedback2" class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="exercise">
+          <h2>
+            3. ¿Qué tipo de triángulo se forma al considerar \( \vec{u} \) y sus
+            componentes paralela y perpendicular con respecto a \( \vec{v} \)?
+          </h2>
+          <button
+            class="option"
+            data-correct="true"
+            onclick="checkAnswer(this, 'feedback3')"
+          >
+            A. Triángulo rectángulo
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback3')">
+            B. Triángulo equilátero
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback3')">
+            C. Triángulo isósceles
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback3')">
+            D. Triángulo escaleno
+          </button>
+          <div id="feedback3" class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="exercise">
+          <h2>
+            4. ¿Qué ocurre con la proyección de \( \vec{u} \) sobre \( \vec{v}
+            \) si estos vectores son perpendiculares?
+          </h2>
+          <button
+            class="option"
+            data-correct="true"
+            onclick="checkAnswer(this, 'feedback4')"
+          >
+            A. La proyección es cero
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback4')">
+            B. La proyección es igual a \( \vec{u} \)
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback4')">
+            C. La proyección es igual a \( \vec{v} \)
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback4')">
+            D. No se puede calcular
+          </button>
+          <div id="feedback4" class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 5 -->
+        <div class="exercise">
+          <h2>
+            5. ¿Cuál es el error al usar la fórmula incorrecta para la
+            proyección: <br />
+            \[ \frac{\vec{u} \cdot \vec{v}}{|\vec{v}|} \cdot \vec{v} \] ?
+          </h2>
+          <button
+            class="option"
+            data-correct="true"
+            onclick="checkAnswer(this, 'feedback5')"
+          >
+            A. No se divide entre el cuadrado de la norma de \( \vec{v} \)
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback5')">
+            B. No se multiplica por \( \vec{v} \)
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback5')">
+            C. Usas el producto vectorial en lugar del producto punto
+          </button>
+          <button class="option" onclick="checkAnswer(this, 'feedback5')">
+            D. La fórmula es correcta
+          </button>
+          <div id="feedback5" class="feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function checkAnswer(button, feedbackId) {
+        if (button.disabled) return;
+
+        const feedbackEl = document.getElementById(feedbackId);
+        const parent = button.parentElement;
+        const options = parent.querySelectorAll("button.option");
+
+        options.forEach((btn) => (btn.disabled = true));
+
+        if (button.dataset.correct === "true") {
+          button.classList.add("correct");
+          feedbackEl.textContent = "¡Correcto! 🎉";
+          feedbackEl.style.color = "#4caf50";
+        } else {
+          button.classList.add("incorrect");
+          feedbackEl.textContent = "Incorrecto. Intenta de nuevo.";
+          feedbackEl.style.color = "#e74c3c";
+
+          // Mostrar la opción correcta
+          options.forEach((btn) => {
+            if (btn.dataset.correct === "true") {
+              btn.classList.add("correct");
+            }
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Práctica y Competencia de Proyección Vectorial</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1e1e2f, #2a2a3f);
+        color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+      .main-container {
+        max-width: 800px;
+        width: 100%;
+        background-color: #292940;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      }
+      header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+        color: #ffe066;
+      }
+      header p {
+        font-size: 1.1rem;
+        color: #ccc;
+      }
+      .exercise {
+        margin-top: 30px;
+        background-color: #1f1f30;
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .exercise h2 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+      }
+      .option {
+        display: block;
+        background-color: #38385c;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        margin: 5px 0;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      .option:hover {
+        background-color: #505080;
+      }
+      .correct {
+        background-color: #4caf50 !important;
+      }
+      .incorrect {
+        background-color: #e74c3c !important;
+      }
+      .feedback {
+        margin-top: 10px;
+        font-weight: bold;
+      }
+      .mascota-container {
+        text-align: center;
+        margin: 40px 0 20px;
+      }
+      .mascota-img {
+        width: 140px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <header>
+        <h1>🦊 ¡Hora de practicar! Godot te acompañará en los ejercicios</h1>
+        <p>
+          Te propone hacer este ejercicio de práctica para asegurar tu
+          conocimiento
+        </p>
+      </header>
+
+      <div class="exercise-section">
+        <!-- Pregunta 1 -->
+        <div class="exercise">
+          <h2>
+            📌 Situación: Un dron vuela con una velocidad 𝑎⃗ = 5𝑖̂ + 3𝑗̂ km/h. Hay
+            una ráfaga de viento con velocidad 𝑏⃗ = 2𝑖̂ + 4𝑗̂ km/h. ¿Cuál es el
+            producto punto 𝑎⃗ ⋅ 𝑏⃗?
+          </h2>
+          <button
+            class="option"
+            data-answer="22"
+            onclick="checkAnswer(this, '22', 'feedback1')"
+          >
+            A. 22
+          </button>
+          <button
+            class="option"
+            data-answer="26"
+            onclick="checkAnswer(this, '22', 'feedback1')"
+          >
+            B. 26
+          </button>
+          <button
+            class="option"
+            data-answer="32"
+            onclick="checkAnswer(this, '22', 'feedback1')"
+          >
+            C. 32
+          </button>
+          <button
+            class="option"
+            data-answer="34"
+            onclick="checkAnswer(this, '22', 'feedback1')"
+          >
+            D. 34
+          </button>
+          <div id="feedback1" class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="exercise">
+          <h2>
+            📌 Pregunta 2: Si A = (7,1) y B = (2,2), ¿cuál es el producto punto
+            A · B?
+          </h2>
+          <button
+            class="option"
+            data-answer="14"
+            onclick="checkAnswer(this, '16', 'feedback2')"
+          >
+            A. 14
+          </button>
+          <button
+            class="option"
+            data-answer="16"
+            onclick="checkAnswer(this, '16', 'feedback2')"
+          >
+            B. 16
+          </button>
+          <button
+            class="option"
+            data-answer="18"
+            onclick="checkAnswer(this, '16', 'feedback2')"
+          >
+            C. 18
+          </button>
+          <button
+            class="option"
+            data-answer="12"
+            onclick="checkAnswer(this, '16', 'feedback2')"
+          >
+            D. 12
+          </button>
+          <div id="feedback2" class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="exercise">
+          <h2>
+            📌 Pregunta 3: Si A = (8,6) y B = (3,4), ¿cuál es la proyección de A
+            sobre B?
+          </h2>
+          <button
+            class="option"
+            data-answer="(5.76, 7.68)"
+            onclick="checkAnswer(this, '(5.76, 7.68)', 'feedback3')"
+          >
+            A. (5.76, 7.68)
+          </button>
+          <button
+            class="option"
+            data-answer="(3.6,4.8)"
+            onclick="checkAnswer(this, '(5.76, 7.68)', 'feedback3')"
+          >
+            B. (3.6,4.8)
+          </button>
+          <button
+            class="option"
+            data-answer="(5.4,7.2)"
+            onclick="checkAnswer(this, '(5.76, 7.68)', 'feedback3')"
+          >
+            C. (5.4,7.2)
+          </button>
+          <button
+            class="option"
+            data-answer="(4.2,5.6)"
+            onclick="checkAnswer(this, '(5.76, 7.68)', 'feedback3')"
+          >
+            D. (4.2,5.6)
+          </button>
+          <div id="feedback3" class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="exercise">
+          <h2>
+            📌 Pregunta 4: ¿Cuál es la proyección vectorial de 𝑎⃗ sobre 𝑏⃗?
+          </h2>
+          <button
+            class="option"
+            data-answer="(2.2, 4.4)"
+            onclick="checkAnswer(this, '(2.2, 4.4)', 'feedback4')"
+          >
+            A. (2.2, 4.4)
+          </button>
+          <button
+            class="option"
+            data-answer="(1.5, 3.0)"
+            onclick="checkAnswer(this, '(2.2, 4.4)', 'feedback4')"
+          >
+            B. (1.5, 3.0)
+          </button>
+          <button
+            class="option"
+            data-answer="(3.0, 6.0)"
+            onclick="checkAnswer(this, '(2.2, 4.4)', 'feedback4')"
+          >
+            C. (3.0, 6.0)
+          </button>
+          <button
+            class="option"
+            data-answer="(4.0, 8.0)"
+            onclick="checkAnswer(this, '(2.2, 4.4)', 'feedback4')"
+          >
+            D. (4.0, 8.0)
+          </button>
+          <div id="feedback4" class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 5 -->
+        <div class="exercise">
+          <h2>
+            📌 Pregunta 5: ¿Cuál es la componente perpendicular de 𝑎⃗ respecto a
+            𝑏⃗?
+          </h2>
+          <button
+            class="option"
+            data-answer="(2.8, -1.4)"
+            onclick="checkAnswer(this, '(2.8, -1.4)', 'feedback5')"
+          >
+            A. (2.8, -1.4)
+          </button>
+          <button
+            class="option"
+            data-answer="(1.5, 2.5)"
+            onclick="checkAnswer(this, '(2.8, -1.4)', 'feedback5')"
+          >
+            B. (1.5, 2.5)
+          </button>
+          <button
+            class="option"
+            data-answer="(3.0, 3.0)"
+            onclick="checkAnswer(this, '(2.8, -1.4)', 'feedback5')"
+          >
+            C. (3.0, 3.0)
+          </button>
+          <button
+            class="option"
+            data-answer="(4.0, 2.0)"
+            onclick="checkAnswer(this, '(2.8, -1.4)', 'feedback5')"
+          >
+            D. (4.0, 2.0)
+          </button>
+          <div id="feedback5" class="feedback"></div>
+        </div>
+      </div>
+
+      <!-- Mascota -->
+      <div class="mascota-container">
+        <img class="mascota-img" src="Archivos/Dor.png" alt="Mascota Godot" />
+      </div>
+    </div>
+
+    <!-- Script para manejo de respuestas -->
+    <script>
+      function checkAnswer(button, correctAnswer, feedbackId) {
+        const buttons = button.parentNode.querySelectorAll("button");
+        buttons.forEach((btn) => (btn.disabled = true));
+
+        const feedback = document.getElementById(feedbackId);
+
+        if (button.dataset.answer === correctAnswer) {
+          button.classList.add("correct");
+          feedback.textContent = "¡Respuesta correcta! 🎉";
+          feedback.style.color = "#4caf50";
+        } else {
+          button.classList.add("incorrect");
+          feedback.textContent = "Respuesta incorrecta. Intenta de nuevo.";
+          feedback.style.color = "#e74c3c";
+
+          // Marcar la respuesta correcta también
+          buttons.forEach((btn) => {
+            if (btn.dataset.answer === correctAnswer) {
+              btn.classList.add("correct");
+            }
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proyección de Vectores con Godit</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <style>
+      :root {
+        --primary: #3498db;
+        --secondary: #e74c3c;
+        --accent: #2ecc71;
+        --dark: #2c3e50;
+        --light: #ecf0f1;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.7;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        color: #333;
+        background-color: #f9f9f9;
+        background-image: url("https://img.freepik.com/vector-gratis/fondo-geometrico-blanco-estilo-papel_53876-140885.jpg");
+        background-attachment: fixed;
+      }
+
+      header {
+        background-color: var(--dark);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::after {
+        content: "";
+        background: url("https://cdn-icons-png.flaticon.com/512/1864/1864593.png")
+          no-repeat;
+        background-size: contain;
+        opacity: 0.1;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 0;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: var(--dark);
+        position: relative;
+        z-index: 1;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        text-align: center;
+        color: white;
+      }
+
+      h2 {
+        border-left: 5px solid var(--primary);
+        padding-left: 15px;
+        margin-top: 40px;
+        font-size: 1.8rem;
+      }
+
+      .fox-teacher {
+        display: flex;
+        align-items: center;
+        background-color: white;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 20px 0;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        border-left: 5px solid var(--accent);
+      }
+
+      .fox-icon {
+        flex: 0 0 80px;
+        text-align: center;
+      }
+
+      .fox-icon img {
+        width: 60px;
+        height: 60px;
+      }
+
+      .fox-message {
+        flex: 1;
+        padding-left: 15px;
+        font-style: italic;
+        color: var(--dark);
+      }
+
+      .formula {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid var(--primary);
+        font-family: "Courier New", monospace;
+        overflow-x: auto;
+        margin: 20px 0;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+      }
+
+      .graph-container {
+        width: 100%;
+        height: 400px;
+        margin: 30px 0;
+        background-color: white;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .interactive-controls {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 30px 0;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .slider-container {
+        margin-bottom: 15px;
+      }
+
+      .slider-container label {
+        display: inline-block;
+        width: 120px;
+        font-weight: bold;
+        color: var(--dark);
+      }
+
+      input[type="range"] {
+        width: 60%;
+        margin: 0 10px;
+        vertical-align: middle;
+      }
+
+      .value-display {
+        display: inline-block;
+        width: 50px;
+        text-align: center;
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      }
+
+      th {
+        background-color: var(--primary);
+        color: white;
+        padding: 12px;
+        text-align: left;
+      }
+
+      td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f8f9fa;
+      }
+
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 50px;
+        padding: 20px;
+        color: #7f8c8d;
+        font-size: 0.9rem;
+      }
+
+      .application-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 15px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-left: 3px solid var(--accent);
+      }
+
+      .application-card h4 {
+        margin-top: 0;
+        color: var(--dark);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Proyección de Vectores en ℝ²</h1>
+      <p style="text-align: center; position: relative; z-index: 1">
+        Aprende con el Profesor Godit
+      </p>
+    </header>
+
+    <div class="fox-teacher">
+      <div class="fox-icon">
+        <img src="Archivos/Godot orgulloso.png" alt="Zorro académico" />
+      </div>
+      <div class="fox-message">
+        ¡Hola! Soy Godit y hoy te enseñaré sobre proyección de vectores. Imagina
+        que eres un barco navegando y quieres saber cuánto de tu movimiento
+        aprovecha la corriente. ¡Eso es proyección vectorial!
+      </div>
+    </div>
+
+    <h2>¿Qué es la Proyección de un Vector?</h2>
+
+    <div class="fox-teacher">
+      <div class="fox-icon">
+        <img src="Archivos/Godot feliz.png" alt="Zorro académico" />
+      </div>
+      <div class="fox-message">
+        La proyección de \(\vec{u}\) sobre \(\vec{v}\) es como la sombra que
+        dejaría \(\vec{u}\) si el sol brillara directamente sobre \(\vec{v}\).
+        Nos dice qué parte de \(\vec{u}\) va en la misma dirección que
+        \(\vec{v}\).
+      </div>
+    </div>
+
+    <div class="formula">
+      \[ \text{proy}_{\vec{v}} \vec{u} = \left( \frac{\vec{u} \cdot
+      \vec{v}}{\|\vec{v}\|^2} \right) \vec{v} \]
+    </div>
+
+    <h2>Ejemplo Práctico: Barco y Corriente</h2>
+
+    <div class="fox-teacher">
+      <div class="fox-icon">
+        <img src="Archivos/Godot serio.png" alt="Zorro académico" />
+      </div>
+      <div class="fox-message">
+        Tenemos un barco que se mueve a \(\vec{u} = (8, 6)\) km/h y una
+        corriente \(\vec{v} = (4, 0)\) km/h. Vamos a calcular cuánto del
+        movimiento del barco aprovecha la corriente.
+      </div>
+    </div>
+
+    <div class="graph-container">
+      <canvas id="vectorChart"></canvas>
+    </div>
+
+    <h3>Cálculos Paso a Paso</h3>
+    <table>
+      <tr>
+        <th>Concepto</th>
+        <th>Fórmula</th>
+        <th>Cálculo</th>
+        <th>Resultado</th>
+      </tr>
+      <tr>
+        <td>Producto Punto</td>
+        <td>\(\vec{u} \cdot \vec{v} = u_x v_x + u_y v_y\)</td>
+        <td>\(8 \times 4 + 6 \times 0\)</td>
+        <td>32</td>
+      </tr>
+      <tr>
+        <td>Norma de \(\vec{v}\)</td>
+        <td>\(\|\vec{v}\| = \sqrt{v_x^2 + v_y^2}\)</td>
+        <td>\(\sqrt{4^2 + 0^2}\)</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>Proyección Escalar</td>
+        <td>\(\frac{\vec{u} \cdot \vec{v}}{\|\vec{v}\|}\)</td>
+        <td>\(\frac{32}{4}\)</td>
+        <td>8 km/h</td>
+      </tr>
+      <tr>
+        <td>Proyección Vectorial</td>
+        <td>\(\left( \frac{32}{16} \right) (4, 0)\)</td>
+        <td>\(2 \times (4, 0)\)</td>
+        <td>\((8, 0)\) km/h</td>
+      </tr>
+      <tr>
+        <td>Componente Perpendicular</td>
+        <td>\(\vec{u} - \text{proy}_{\vec{v}} \vec{u}\)</td>
+        <td>\((8,6) - (8,0)\)</td>
+        <td>\((0, 6)\) km/h</td>
+      </tr>
+    </table>
+
+    <div class="fox-teacher">
+      <div class="fox-icon">
+        <img src="Archivos/Godot orgulloso.png" alt="Zorro académico" />
+      </div>
+      <div class="fox-message">
+        ¡Fíjate! La proyección nos dice que el barco aprovecha 8 km/h de la
+        corriente (hacia el este), pero se desvía 6 km/h hacia el norte. Si
+        queremos ir exactamente en la dirección de la corriente, necesitamos
+        corregir el rumbo.
+      </div>
+    </div>
+
+    <h2>Simulador Interactivo</h2>
+
+    <div class="fox-teacher">
+      <div class="fox-icon">
+        <img src="Archivos/Godot feliz.png" alt="Zorro académico" />
+      </div>
+      <div class="fox-message">
+        ¡Juega con estos controles! Cambia los vectores y observa cómo se
+        modifica la proyección. ¿Qué pasa cuando los vectores son
+        perpendiculares? ¿Y cuando son paralelos?
+      </div>
+    </div>
+
+    <div class="interactive-controls">
+      <div class="slider-container">
+        <label for="ux">Vector \(\vec{u}_x\):</label>
+        <input type="range" id="ux" min="-10" max="10" value="8" step="1" />
+        <span class="value-display" id="ux-value">8</span>
+      </div>
+
+      <div class="slider-container">
+        <label for="uy">Vector \(\vec{u}_y\):</label>
+        <input type="range" id="uy" min="-10" max="10" value="6" step="1" />
+        <span class="value-display" id="uy-value">6</span>
+      </div>
+
+      <div class="slider-container">
+        <label for="vx">Vector \(\vec{v}_x\):</label>
+        <input type="range" id="vx" min="-10" max="10" value="4" step="1" />
+        <span class="value-display" id="vx-value">4</span>
+      </div>
+
+      <div class="slider-container">
+        <label for="vy">Vector \(\vec{v}_y\):</label>
+        <input type="range" id="vy" min="-10" max="10" value="0" step="1" />
+        <span class="value-display" id="vy-value">0</span>
+      </div>
+    </div>
+
+    <div class="graph-container">
+      <canvas id="interactiveChart"></canvas>
+    </div>
+
+    <h2>Aplicaciones en la Vida Real</h2>
+
+    <div class="fox-teacher">
+      <div class="fox-icon">
+        <img src="Archivos/Zorro en curioso.png" alt="Zorro académico" />
+      </div>
+      <div class="fox-message">
+        La proyección de vectores no es solo teoría. Se usa en muchas áreas
+        importantes:
+      </div>
+    </div>
+
+    <div class="application-card">
+      <h4>🚢 Navegación Marítima</h4>
+      <p>
+        Los capitanes usan estos cálculos para ajustar su rumbo y aprovechar las
+        corrientes oceánicas, ahorrando combustible.
+      </p>
+    </div>
+
+    <div class="application-card">
+      <h4>🛩️ Ingeniería Aeronáutica</h4>
+      <p>
+        Para calcular cómo el viento afecta la trayectoria de un avión y
+        corregir el piloto automático.
+      </p>
+    </div>
+
+    <div class="application-card">
+      <h4>🎮 Gráficos por Computadora</h4>
+      <p>
+        En videojuegos y películas animadas, para crear sombras realistas y
+        efectos de iluminación.
+      </p>
+    </div>
+
+    <footer>
+      <p>© 2025 Godit - Todos los derechos reservados</p>
+      <p>¡Sigue aprendiendo matemáticas con diversión!</p>
+    </footer>
+
+    <script>
+      // Configuración del gráfico estático
+      const staticCtx = document.getElementById("vectorChart").getContext("2d");
+      new Chart(staticCtx, {
+        type: "scatter",
+        data: {
+          datasets: [
+            {
+              label: "Barco (8,6)",
+              data: [
+                { x: 0, y: 0 },
+                { x: 8, y: 6 },
+              ],
+              borderColor: "#3498db",
+              backgroundColor: "#3498db",
+              pointRadius: 0,
+              borderWidth: 3,
+              showLine: true,
+            },
+            {
+              label: "Corriente (4,0)",
+              data: [
+                { x: 0, y: 0 },
+                { x: 4, y: 0 },
+              ],
+              borderColor: "#e74c3c",
+              backgroundColor: "#e74c3c",
+              pointRadius: 0,
+              borderWidth: 3,
+              showLine: true,
+            },
+            {
+              label: "Proyección (8,0)",
+              data: [
+                { x: 0, y: 0 },
+                { x: 8, y: 0 },
+              ],
+              borderColor: "#2ecc71",
+              backgroundColor: "#2ecc71",
+              pointRadius: 0,
+              borderWidth: 3,
+              showLine: true,
+            },
+            {
+              label: "Componente ⊥ (0,6)",
+              data: [
+                { x: 8, y: 0 },
+                { x: 8, y: 6 },
+              ],
+              borderColor: "#9b59b6",
+              backgroundColor: "#9b59b6",
+              pointRadius: 0,
+              borderWidth: 3,
+              showLine: true,
+              borderDash: [6, 6],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              min: -1,
+              max: 9,
+              title: {
+                display: true,
+                text: "Dirección Este",
+              },
+            },
+            y: {
+              min: -1,
+              max: 7,
+              title: {
+                display: true,
+                text: "Dirección Norte",
+              },
+            },
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: "Proyección del Barco sobre la Corriente",
+              font: {
+                size: 18,
+              },
+            },
+            legend: {
+              position: "top",
+              labels: {
+                font: {
+                  size: 14,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      // Configuración del gráfico interactivo
+      const interactiveCtx = document
+        .getElementById("interactiveChart")
+        .getContext("2d");
+      let interactiveChart = new Chart(interactiveCtx, {
+        type: "scatter",
+        data: { datasets: [] },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              min: -10,
+              max: 10,
+              title: {
+                display: true,
+                text: "Eje X",
+              },
+            },
+            y: {
+              min: -10,
+              max: 10,
+              title: {
+                display: true,
+                text: "Eje Y",
+              },
+            },
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: "Simulador de Proyección Vectorial",
+              font: {
+                size: 18,
+              },
+            },
+            legend: {
+              position: "top",
+              labels: {
+                font: {
+                  size: 14,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      // Función para actualizar el gráfico interactivo
+      function updateChart() {
+        const ux = parseInt(document.getElementById("ux").value);
+        const uy = parseInt(document.getElementById("uy").value);
+        const vx = parseInt(document.getElementById("vx").value);
+        const vy = parseInt(document.getElementById("vy").value);
+
+        // Calcular proyección
+        const dotProduct = ux * vx + uy * vy;
+        const normVSquared = vx * vx + vy * vy;
+        const projX = normVSquared ? (dotProduct / normVSquared) * vx : 0;
+        const projY = normVSquared ? (dotProduct / normVSquared) * vy : 0;
+        const perpX = ux - projX;
+        const perpY = uy - projY;
+
+        interactiveChart.data.datasets = [
+          {
+            label: `Vector u (${ux},${uy})`,
+            data: [
+              { x: 0, y: 0 },
+              { x: ux, y: uy },
+            ],
+            borderColor: "#3498db",
+            backgroundColor: "#3498db",
+            pointRadius: 0,
+            borderWidth: 3,
+            showLine: true,
+          },
+          {
+            label: `Vector v (${vx},${vy})`,
+            data: [
+              { x: 0, y: 0 },
+              { x: vx, y: vy },
+            ],
+            borderColor: "#e74c3c",
+            backgroundColor: "#e74c3c",
+            pointRadius: 0,
+            borderWidth: 3,
+            showLine: true,
+          },
+          {
+            label: `Proyección (${projX.toFixed(1)},${projY.toFixed(1)})`,
+            data: [
+              { x: 0, y: 0 },
+              { x: projX, y: projY },
+            ],
+            borderColor: "#2ecc71",
+            backgroundColor: "#2ecc71",
+            pointRadius: 0,
+            borderWidth: 3,
+            showLine: true,
+          },
+          {
+            label: `Componente ⊥ (${perpX.toFixed(1)},${perpY.toFixed(1)})`,
+            data: [
+              { x: projX, y: projY },
+              { x: ux, y: uy },
+            ],
+            borderColor: "#9b59b6",
+            backgroundColor: "#9b59b6",
+            pointRadius: 0,
+            borderWidth: 3,
+            showLine: true,
+            borderDash: [6, 6],
+          },
+        ];
+        interactiveChart.update();
+
+        // Actualizar valores mostrados
+        document.getElementById("ux-value").textContent = ux;
+        document.getElementById("uy-value").textContent = uy;
+        document.getElementById("vx-value").textContent = vx;
+        document.getElementById("vy-value").textContent = vy;
+      }
+
+      // Configurar listeners para los sliders
+      document.getElementById("ux").addEventListener("input", updateChart);
+      document.getElementById("uy").addEventListener("input", updateChart);
+      document.getElementById("vx").addEventListener("input", updateChart);
+      document.getElementById("vy").addEventListener("input", updateChart);
+
+      // Inicializar
+      updateChart();
+    </script>
+  </body>
+</html>
+<li><a href="Ejercicios.html"> 1 Parte Ejercicio practico</a></li>
